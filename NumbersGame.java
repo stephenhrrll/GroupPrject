@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 class NumbersGame extends JFrame {
 
@@ -43,9 +45,69 @@ class NumbersGame extends JFrame {
     }//End of NumbersGame constructor
 
     public void makeView(){
+
+        Messages guiMessages = new Messages();
+
+        /********************************************************
+         * **********************row 2****************************
+         * ******************************************************/
+
+        // ****************output area**************************
+
+        JTextArea output = new JTextArea();
+        output.setEditable(false);
+        output.setFont(new Font(null,0,24));
+        output.setWrapStyleWord(true);
+        output.setLineWrap(true);
+
+
+
+        output.setText(guiMessages.welcomeMessage());
+
+        //Scroll bar
+        JScrollPane scroll = new JScrollPane (output);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        //second row first column
+        cst.fill = GridBagConstraints.HORIZONTAL;
+        cst.weightx = 0.0;
+        cst.gridwidth = 2;
+        cst.ipady = 600;
+        cst.gridx = 0;
+        cst.gridy = 1;
+
+
+        add(scroll, cst);
         /****************************************************
         * *****************row 1*****************************
         * **************************************************/
+
+        //*****************input area***************************
+
+        JTextField input = new JTextField("Input");
+        input.setFont(new Font(null, 0, 24));
+        input.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        input.addFocusListener(new FocusAdapter(){
+            @Override
+            public void focusGained(FocusEvent e) {
+                //removes placeholder text upon text area selection
+                JTextField source = (JTextField)e.getComponent();
+                source.setText("");
+                source.removeFocusListener(this);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e){
+
+            }
+        });
+
 
         //*****************start game button******************
 
@@ -55,6 +117,10 @@ class NumbersGame extends JFrame {
 
 
         cst.fill = GridBagConstraints.HORIZONTAL;
+
+        cst.gridwidth = 1;//reset
+        cst.ipady = 0;//reset
+
         cst.weightx = 0.5;
         cst.gridx = 0;//first column
         cst.gridy = 0;//first row
@@ -69,35 +135,29 @@ class NumbersGame extends JFrame {
                 /*
                 *
                 *
-                *
-                *
-                *
-                *
-                *
-                *
-                *
-                *
-                *
-                * this buttons functions go here
-                *
-                *
-                *
-                *
-                *
-                *
-                *
-                *
+                * start button functions go here
                 *
                 * */
+
+                JButton button = (JButton)e.getSource();
+                String buttonText = button.getText();
+
+                if(buttonText.matches("Start Game")){
+                    //user has just started the game
+                    //this proceeds to the next screen
+                    button.setText("Submit");
+                    output.setText(guiMessages.higherLevelInstructions());
+                    input.setText("Enter Level");
+                }else if (buttonText.matches("Submit")){
+                    //the user has input a level
+                }
+
             }
         });
 
         add(startGuess,cst);
 
-        //*****************input area***************************
-
-        JTextField input = new JTextField("Input");
-        input.setFont(new Font(null, 0, 24));
+        // add input area
 
         //top row second column
         cst.fill = GridBagConstraints.HORIZONTAL;
@@ -136,28 +196,6 @@ class NumbersGame extends JFrame {
 
 
         add(input, cst);
-
-        /********************************************************
-        * **********************row 2****************************
-        * ******************************************************/
-
-        // ****************output area**************************
-
-        JTextArea output = new JTextArea();
-        output.setEditable(false);
-        output.setFont(new Font(null,0,24));
-        output.setText("OutPut / Instructions");
-
-        //second row first column
-        cst.fill = GridBagConstraints.HORIZONTAL;
-        cst.weightx = 0.0;
-        cst.gridwidth = 2;
-        cst.ipady = 600;
-        cst.gridx = 0;
-        cst.gridy = 1;
-
-
-        add(output, cst);
 
         /********************************************************
          * **********************row 3****************************
