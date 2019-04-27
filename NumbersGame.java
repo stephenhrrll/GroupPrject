@@ -7,17 +7,16 @@ import java.awt.event.FocusEvent;
 
 class NumbersGame extends JFrame {
 
-    /*JPanel start_n_input;// will contain startbutton and input area
-    JPanel output_area;// will contain output area
-    JPanel clear_n_stats;// will contain clear display button and stats options
-    JPanel display_n_hardest;// will conatin display stats button and most difficult option*/
     GridBagConstraints cst;
+    GameData gameData;
 
 
 
 
     public NumbersGame(String title){
         super(title);
+
+        gameData = new GameData();
 
         //JFrame settings
         setSize(new Dimension(650, 900));
@@ -142,14 +141,32 @@ class NumbersGame extends JFrame {
                 JButton button = (JButton)e.getSource();
                 String buttonText = button.getText();
 
+                //get text from input
+                String in = input.getText();
+                System.out.println(in);
+
                 if(buttonText.matches("Start Game")){
                     //user has just started the game
-                    //this proceeds to the next screen
+                    //they have entered their name
+
+                    //check to see if that player exists in game data
+
+                    Player player = gameData.find(in);
+
+                    if(player == null) {
+                        Player player = new Player(in);
+                        //add that player to gameData
+
+                        gameData.add(player);
+                    }
+
+
+
                     button.setText("Submit");
-                    output.setText(guiMessages.higherLevelInstructions());
+                    output.setText("Hello " + player.getName()+"\n\n" + guiMessages.higherLevelInstructions());
                     input.setText("Enter Level");
                 }else if (buttonText.matches("Submit")){
-                    //the user has input a level
+
                 }
 
             }
