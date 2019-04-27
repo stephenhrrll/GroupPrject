@@ -7,10 +7,10 @@ public class Messages {
     }
 
     public String welcomeMessage(){
-        return "Welcome Message\n\nThis is where we give a " +
-                "simple explanation on the game and instructions" +
-                " on how to proceed\n" +
-                "Prompt the user to hit the start button\n";
+        return "Welcome to Numbers Game!\n\n" +
+                "This is a game where you guess the numbers I generate.\n\n" +
+                "Ill tell you more after we get started.\n\n" +
+                "Please enter your username in the text field above and click Start Game.";
     }
 
     public String enterLevelInstructions(){
