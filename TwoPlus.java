@@ -10,7 +10,7 @@ public class TwoPlus {
 
     }
 
-    public String generate(String level){
+    private String generate(String level){
         String number = "";
         for(int i = 0; i < Integer.valueOf(level);i++){
             number += (int)(Math.random() * 9);
@@ -72,11 +72,15 @@ public class TwoPlus {
         // check input
         boolean isValid = this.validate(guess);
         if(isValid){
+            if(guess.matches(numberGenerated)){//they have guessed the right number
+                    return guess + ", Win";
+            }
             String correctDigits = countDigits(guess);
 
-            //how many are in the right place
+            //check how many are in the right place
 
             String correctPlace = countSequence(guess);
+
             return correctDigits + correctPlace;
 
         }
