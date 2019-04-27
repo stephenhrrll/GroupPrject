@@ -22,7 +22,9 @@ public class Player {
         return gamesPlayed;
     }
 
-    public void setGamesPlayed(ArrayList<GamePlayed> gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
+    public void addGamePlayed(GamePlayed game){
+        this.gamesPlayed.add(game);
+
     }
+
 }
