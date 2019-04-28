@@ -25,6 +25,12 @@ public class Messages {
         return "higher level instructions go here";
     }
 
+    public String winMessage(){
+        return "You win!\n"+
+                "To play again, enter a level or click Submit\n"+
+                "To quit, exit the game";
+    }
+
 
 }
 
