@@ -1,7 +1,7 @@
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class GameRecorder {
+public class GamePlayed {
 
     private LocalTime startTime;
 
@@ -15,7 +15,7 @@ public class GameRecorder {
 
     private String level;
 
-    public GameRecorder(String numberToGuess, String level){
+    public GamePlayed(String numberToGuess, String level){
         this.startTime = LocalTime.now();
         this.endTime = null;
         this.numberToGuess = numberToGuess;
