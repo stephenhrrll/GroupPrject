@@ -14,7 +14,7 @@ class NumbersGame extends JFrame {
 
     private TwoPlus gamePlay;
 
-    private GamePlayed gameRecord;
+    private GameRecorder gameRecord;
 
 
 
@@ -25,7 +25,7 @@ class NumbersGame extends JFrame {
         gameData = new GameData();
         gamePlay = new TwoPlus("2");//just place holders
         player = new Player("");//just place holders
-        gameRecord = new GamePlayed("", "");
+        gameRecord = new GameRecorder("", "");
 
         //JFrame settings
         setSize(new Dimension(650, 900));
@@ -179,7 +179,7 @@ class NumbersGame extends JFrame {
                         gamePlay = new TwoPlus(in);
                     }
                     //start the timer and start recording game data
-                    gameRecord = new GamePlayed(gamePlay.getNumberGenerated(), in);
+                    gameRecord = new GameRecorder(gamePlay.getNumberGenerated(), in);
                     //add the record of this game to the player
                     player.addGamePlayed(gameRecord);
 
