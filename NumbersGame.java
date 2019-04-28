@@ -10,6 +10,12 @@ class NumbersGame extends JFrame {
     GridBagConstraints cst;
     GameData gameData;
 
+    private Player player;
+
+    private TwoPlus gamePlay;
+
+    private GamePlayed gameRecord;
+
 
 
 
@@ -17,6 +23,9 @@ class NumbersGame extends JFrame {
         super(title);
 
         gameData = new GameData();
+        gamePlay = new TwoPlus("2");//just place holders
+        player = new Player("");//just place holders
+        gameRecord = new GamePlayed("", "");
 
         //JFrame settings
         setSize(new Dimension(650, 900));
@@ -98,13 +107,8 @@ class NumbersGame extends JFrame {
                 //removes placeholder text upon text area selection
                 JTextField source = (JTextField)e.getComponent();
                 source.setText("");
-                source.removeFocusListener(this);
             }
 
-            @Override
-            public void focusLost(FocusEvent e){
-
-            }
         });
 
 
@@ -143,18 +147,17 @@ class NumbersGame extends JFrame {
 
                 //get text from input
                 String in = input.getText();
-                System.out.println(in);
+                in = in.replaceAll(" ", "");
 
                 if(buttonText.matches("Start Game")){
-                    //user has just started the game
-                    //they have entered their name
+                    //user has just entered their name
 
                     //check to see if that player exists in game data
 
-                    Player player = gameData.find(in);
+                    player = gameData.find(in);
 
                     if(player == null) {
-                        Player player = new Player(in);
+                        player = new Player(in);
                         //add that player to gameData
 
                         gameData.add(player);
@@ -166,6 +169,53 @@ class NumbersGame extends JFrame {
                     output.setText("Hello " + player.getName()+"\n\n" + guiMessages.higherLevelInstructions());
                     input.setText("Enter Level");
                 }else if (buttonText.matches("Submit")){
+                    //the user has entered the level.
+
+                    //start the game at that level
+
+                    if(in.matches("1")){
+                        //start level 1
+                    }else{
+                        gamePlay = new TwoPlus(in);
+                    }
+                    //start the timer and start recording game data
+                    gameRecord = new GamePlayed(gamePlay.getNumberGenerated(), in);
+                    //add the record of this game to the player
+                    player.addGamePlayed(gameRecord);
+
+
+                    button.setText("Guess");
+                    output.setText(String.format("Enter a %s digit number", in));
+                    input.setText("Enter a whole number");
+
+                }else if(buttonText.matches("Guess")){
+
+                    //the user has entered their guess
+
+                    String checkGuess = gamePlay.checkGuess(in);
+
+                    System.out.println(gamePlay.getNumberGenerated());
+
+                    gameRecord.addTurn(in +","+ checkGuess);
+
+                    if(checkGuess.contains("Win")){
+                        gameRecord.setEndTime();
+                        gameRecord.setStatus("Won");
+                        //display win message
+                        output.setText(guiMessages.winMessage());
+
+                        //let the player choose to play again
+
+                        button.setText("Submit");
+                        input.setText(gamePlay.getLevel());
+
+                    }else {
+
+                        output.setText(output.getText() + "\n" +
+                                checkGuess + "\n");
+                    }
+
+
 
                 }
 
