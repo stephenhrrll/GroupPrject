@@ -3,26 +3,34 @@ import java.util.ArrayList;
 
 public class GamePlayed {
 
-    LocalTime startTime;
+    private LocalTime startTime;
 
-    LocalTime endTime;
+    private LocalTime endTime;
 
-    String numberToGuess;//the number the player is trying to guess
+    private String numberToGuess;//the number the player is trying to guess
 
-    ArrayList<String> turns;
+    private ArrayList<String> turns;
 
-    String status;//won or lost, losing means they quit the game.
+    private String status;//won or lost, losing means they quit the game.
 
-    public GamePlayed(String numberToGuess){
+    private String level;
+
+    public GamePlayed(String numberToGuess, String level){
         this.startTime = LocalTime.now();
         this.endTime = null;
         this.numberToGuess = numberToGuess;
         this.turns = new ArrayList<String>();
         this.status = null;
+        this.level = level;
     }//end of constructor
 
 
     //Getters
+
+
+    public String getLevel() {
+        return level;
+    }
 
     public LocalTime getStartTime() {
         return startTime;
