@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class Player {
 
     String name;
-    ArrayList<GameRecorder> gamesPlayed;
+    ArrayList<GameRecord> gamesPlayed;
 
     public Player(String name){
         this.name = name;
-        this.gamesPlayed = new ArrayList<GameRecorder>();
+        this.gamesPlayed = new ArrayList<GameRecord>();
     }
 
     public String getName() {
@@ -18,11 +18,11 @@ public class Player {
         this.name = name;
     }
 
-    public ArrayList<GameRecorder> getGamesPlayed() {
+    public ArrayList<GameRecord> getGamesPlayed() {
         return gamesPlayed;
     }
 
-    public void addGamePlayed(GameRecorder game){
+    public void addGamePlayed(GameRecord game){
         this.gamesPlayed.add(game);
 
     }
