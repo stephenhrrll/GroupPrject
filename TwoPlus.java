@@ -45,8 +45,8 @@ public class TwoPlus {
         //check the number of correct digits
         int numOfCorrectDigits = 0;
         //for each digit in numberGenerated check to see if it is in the guess
-        for(String s:numberGenerated.split("")){
-            if(guess.contains(s)){
+        for(String s:guess.split("")){
+            if(numberGenerated.contains(s)){
                 numOfCorrectDigits ++;
             }
         }
@@ -68,13 +68,28 @@ public class TwoPlus {
     }
 
     public String checkGuess(String guess){
+        /*
+        * checkGuess validates the input, if it is invalid it will return
+        *
+        * the prompt to be displayed
+        *
+        * It also checks if the user has guessed correctly,
+        * if so it returns a string containing the guess and Win,
+        * e.g. 12, Win
+        *
+        * If they have not guess correctly it will return the hint
+        *
+        *
+        * */
         guess = guess.replaceAll("[\\D]]","");//replace anything thats not a number with ""
         // check input
         boolean isValid = this.validate(guess);
         if(isValid){
             if(guess.matches(numberGenerated)){//they have guessed the right number
-                    return guess + ", Win";
-            }
+                    return "Win";
+            }//they have not guessed correctly
+
+            //check how many correct digits are present
             String correctDigits = countDigits(guess);
 
             //check how many are in the right place
