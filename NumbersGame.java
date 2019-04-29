@@ -14,7 +14,7 @@ class NumbersGame extends JFrame {
 
     private TwoPlus gamePlay;
 
-    private GameRecorder gameRecord;
+    private GameRecord gameRecord;
 
 
 
@@ -25,11 +25,11 @@ class NumbersGame extends JFrame {
         gameData = new GameData();
         gamePlay = new TwoPlus("2");//just place holders
         player = new Player("");//just place holders
-        gameRecord = new GameRecorder("", "");
+        gameRecord = new GameRecord("", "");
 
         //JFrame settings
         setSize(new Dimension(650, 900));
-        setResizable(false);
+        setResizable(true);
         setLayout(new GridBagLayout());// 5 rows 1 column
         cst = new GridBagConstraints();
         setLocationRelativeTo(null);//opens in the center of the screen
@@ -179,7 +179,7 @@ class NumbersGame extends JFrame {
                         gamePlay = new TwoPlus(in);
                     }
                     //start the timer and start recording game data
-                    gameRecord = new GameRecorder(gamePlay.getNumberGenerated(), in);
+                    gameRecord = new GameRecord(gamePlay.getNumberGenerated(), in);
                     //add the record of this game to the player
                     player.addGamePlayed(gameRecord);
 
@@ -275,29 +275,7 @@ class NumbersGame extends JFrame {
         clearDisp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * clear display functions go here
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * */
+                output.setText("");
             }
         });
 
@@ -319,136 +297,31 @@ class NumbersGame extends JFrame {
         JLabel statsLabel = new JLabel("Statistics Options");
         statsLabel.setFont(new Font(null,0,30));
 
-        JCheckBox time = new JCheckBox("Time");
+        ButtonGroup group = new ButtonGroup();
+
+        JRadioButton time = new JRadioButton("Time", true);
         time.setFont(new Font(null,0,24));
 
-        time.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /*
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * clear other check boxes
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * */
-            }
-        });
 
-        JCheckBox numberOfPlays = new JCheckBox("# of Plays");
+        JRadioButton numberOfPlays = new JRadioButton("# of Plays", false);
         numberOfPlays.setFont(new Font(null,0,24));
 
-        numberOfPlays.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /*
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * clear other check boxes
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * */
-            }
-        });
 
-        JCheckBox topPlayer = new JCheckBox("Top Player");
+
+        JRadioButton topPlayer = new JRadioButton("Top Player", false);
         topPlayer.setFont(new Font(null,0,24));
 
-        topPlayer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /*
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * clear other check boxes
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * */
-            }
-        });
 
-        JCheckBox hardestGame = new JCheckBox("Hardest Game");
+        JRadioButton hardestGame = new JRadioButton("Hardest Game", false);
         hardestGame.setFont(new Font(null,0,24));
 
+        group.add(time);
+        group.add(numberOfPlays);
+        group.add(topPlayer);
+        group.add(hardestGame);
 
-        topPlayer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /*
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * clear other check boxes
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 *
-                 * */
-            }
-        });
+
+
 
         // set gridbox constraints for check boxes
 
@@ -456,7 +329,7 @@ class NumbersGame extends JFrame {
         cst.gridx = 0;
         cst.gridy = 0;
 
-        stats.add(statsLabel,cst);
+        stats.add(statsLabel,cst);//add the label
 
         cst.fill = GridBagConstraints.HORIZONTAL;
         cst.gridx = 0;
@@ -516,6 +389,7 @@ class NumbersGame extends JFrame {
 
 
     }
+
 
 
 
