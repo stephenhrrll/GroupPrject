@@ -81,7 +81,7 @@ public class TwoPlus {
         *
         *
         * */
-        guess = guess.replaceAll("[\\D]]","");//replace anything thats not a number with ""
+        guess = guess.replaceAll("[\\D]","");//replace anything thats not a number with ""
         // check input
         boolean isValid = this.validate(guess);
         if(isValid){

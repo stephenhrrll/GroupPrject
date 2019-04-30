@@ -1,10 +1,11 @@
+import java.util.concurrent.ThreadLocalRandom;
 public class LevelOne {//extends TwoPlus {
     private String level;
     private String numberGenerated;
 
     public LevelOne(String level){
         this.level = level;
-        this.numberGenerated = generate(level);
+        this.numberGenerated = this.generate();
         //this.level = level
 
 
@@ -18,17 +19,17 @@ public class LevelOne {//extends TwoPlus {
         return level;
     }
 
-    private String generate(String level){
-        String number = "";
-            number += (int)(Math.random() * 20);
-        return number;
+    private String generate(){
+        int randomNum = ThreadLocalRandom.current().nextInt(1, 5 + 1);
+        String answer = Integer.toString(randomNum);
+        return answer;
     }
 
     private boolean validate(String guess){
+        //guess = guess.replaceAll("[^\\d]","");
         guess = guess.replaceAll("[\\D]","");//replace all
-        int diff = Math.abs((guess.length()));
-        //int diff = Math.abs(guess.length() - numberGenerated.length());
-        if(diff != 2 || diff != 1){// too many or too few digits
+        int diff = Math.abs(guess.length() - numberGenerated.length());
+        if(diff != 0){// too many or too few digits
             return false;
         }
         return true;//is correct length and has only numbers
@@ -51,7 +52,7 @@ public class LevelOne {//extends TwoPlus {
          *
          *
          * */
-        guess = guess.replaceAll("[\\D]]","");//replace anything thats not a number with ""
+        guess = guess.replaceAll("[^\\d]","");//replace anything thats not a number with ""
         // check input
         boolean isValid = this.validate(guess);
         if(isValid){
