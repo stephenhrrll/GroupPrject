@@ -13,6 +13,7 @@ class NumbersGame extends JFrame {
     private Player player;
 
     private TwoPlus gamePlay;
+    private LevelOne gamePlay1;
 
     private GameRecord gameRecord;
 
@@ -24,6 +25,7 @@ class NumbersGame extends JFrame {
 
         gameData = new GameData();
         gamePlay = new TwoPlus("2");//just place holders
+        gamePlay1 = new LevelOne("1");
         player = new Player("");//just place holders
         gameRecord = new GameRecord("", "");
 
@@ -175,19 +177,26 @@ class NumbersGame extends JFrame {
 
                     if(in.matches("1")){
                         //start level 1
-                    }else{
+                        gamePlay1 = new LevelOne(in);
+
+                        gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), in);
+                        player.addGamePlayed(gameRecord);
+                        button.setText("Guess");
+                        output.setText(String.format("Enter a number between 0 and %s", in));
+                        input.setText("Enter a whole number");
+                    }else {
                         gamePlay = new TwoPlus(in);
+
+                        //start the timer and start recording game data
+                        gameRecord = new GameRecord(gamePlay.getNumberGenerated(), in);
+                        //add the record of this game to the player
+                        player.addGamePlayed(gameRecord);
+
+
+                        button.setText("Guess");
+                        output.setText(String.format("Enter a %s digit number", in));
+                        input.setText("Enter a whole number");
                     }
-                    //start the timer and start recording game data
-                    gameRecord = new GameRecord(gamePlay.getNumberGenerated(), in);
-                    //add the record of this game to the player
-                    player.addGamePlayed(gameRecord);
-
-
-                    button.setText("Guess");
-                    output.setText(String.format("Enter a %s digit number", in));
-                    input.setText("Enter a whole number");
-
                 }else if(buttonText.matches("Guess")){
 
                     //the user has entered their guess
