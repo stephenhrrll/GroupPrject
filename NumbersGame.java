@@ -1,11 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.*;
+import java.io.*;
+import java.util.ArrayList;
 
-class NumbersGame extends JFrame {
+class NumbersGame extends JFrame implements WindowListener {
 
     GridBagConstraints cst;
     GameData gameData;
@@ -40,7 +39,10 @@ class NumbersGame extends JFrame {
         * Saving data when closing will have to start here
         *
         * need to look this up
+        *
         * */
+
+        addWindowListener(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         makeView();
@@ -447,11 +449,79 @@ class NumbersGame extends JFrame {
 
     }
 
+    @Override
+    public void windowOpened(WindowEvent e) {
 
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream("gameData.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            gameData = (GameData) ois.readObject();
+            ois.close();
+
+            //this needs to be further tested
+
+            /*ArrayList<Player> data = gameData.getGameData();
+
+            for(Player p:data){
+                System.out.println(p.getName());
+            }*/
+
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        // saving gameData will occur here
+        try {
+            System.out.println("Closing");
+            FileOutputStream fos = new FileOutputStream("gameData.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(gameData);
+            oos.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 
 
     public static void main(String[] args) {
         new NumbersGame("Numbers Game").setVisible(true);
     }
+
 
 }// End of NumbersGame class
