@@ -297,7 +297,7 @@ class NumbersGame extends JFrame {
         JLabel statsLabel = new JLabel("Statistics Options");
         statsLabel.setFont(new Font(null,0,30));
 
-        ButtonGroup group = new ButtonGroup();
+        ButtonGroup group = new ButtonGroup();//grouping the radio buttons ensures that others get unchecked
 
         JRadioButton time = new JRadioButton("Time", true);
         time.setFont(new Font(null,0,24));
@@ -376,7 +376,8 @@ class NumbersGame extends JFrame {
         dispStats.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //display stats
+                //if time is selected
+
             }
         });
 
