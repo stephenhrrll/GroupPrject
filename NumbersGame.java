@@ -24,7 +24,9 @@ class NumbersGame extends JFrame implements WindowListener {
 
         gameData = new GameData();
         gamePlay = new TwoPlus("2");//just place holders
-        //gamePlay1 = new LevelOne( "2");
+      
+        //gamePlay1 = new LevelOne( "2")
+  
         player = new Player("");//just place holders
         gameRecord = new GameRecord("", "");
 
@@ -186,7 +188,9 @@ class NumbersGame extends JFrame implements WindowListener {
                         /*gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), in);
                         player.addGamePlayed(gameRecord);*/
                         button.setText("Set Max");
+
                         output.setText("Enter a Max value to guess" + "\n" + guiMessages.levelOneInstructions());
+
                         input.setText("Enter a whole number");
                     }else {
                         gamePlay = new TwoPlus(in);
@@ -275,6 +279,7 @@ class NumbersGame extends JFrame implements WindowListener {
                     output.setText("Enter a maximum value");
                     input.setText("Enter a maximum value");
                     gamePlay1 = new LevelOne(in);
+                
 
 
                     gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), in);

@@ -4,8 +4,8 @@ public class LevelOne {//extends TwoPlus {
     private String level = "1";
     private String numberGenerated;
 
+
     public LevelOne (String max){
-        //this.level = level;
         this.numberGenerated = this.generate(max);
 
 
