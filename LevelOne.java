@@ -1,12 +1,12 @@
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 public class LevelOne {//extends TwoPlus {
     private String level;
     private String numberGenerated;
 
-    public LevelOne(String level){
+    public LevelOne(String level, String max){
         this.level = level;
-        this.numberGenerated = this.generate();
-        //this.level = level
+        this.numberGenerated = this.generate(max);
 
 
     }
@@ -19,10 +19,13 @@ public class LevelOne {//extends TwoPlus {
         return level;
     }
 
-    private String generate(){
-        int randomNum = ThreadLocalRandom.current().nextInt(1, 5 + 1);
+    private String generate(String max){
+        /*int randomNum = ThreadLocalRandom.current().nextInt(1, Integer.valueOf(max) + 1);
         String answer = Integer.toString(randomNum);
-        return answer;
+        return answer;*/
+
+        Random r = new Random();
+        return Integer.toString(r.nextInt((Integer.valueOf(max) - 0) + 1));
     }
 
     private boolean validate(String guess){
