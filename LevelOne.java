@@ -1,12 +1,12 @@
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 public class LevelOne {//extends TwoPlus {
-    private String level;
+    private String level = "1";
     private String numberGenerated;
 
-    public LevelOne(String level){
-        this.level = level;
-        this.numberGenerated = this.generate();
-        //this.level = level
+    public LevelOne (String max){
+        //this.level = level;
+        this.numberGenerated = this.generate(max);
 
 
     }
@@ -19,10 +19,13 @@ public class LevelOne {//extends TwoPlus {
         return level;
     }
 
-    private String generate(){
-        int randomNum = ThreadLocalRandom.current().nextInt(1, 5 + 1);
+    private String generate(String max){
+        /*int randomNum = ThreadLocalRandom.current().nextInt(1, Integer.valueOf(max) + 1);
         String answer = Integer.toString(randomNum);
-        return answer;
+        return answer;*/
+
+        Random r = new Random();
+        return Integer.toString(r.nextInt((Integer.valueOf(max) - 0) + 1));
     }
 
     private boolean validate(String guess){
@@ -52,6 +55,9 @@ public class LevelOne {//extends TwoPlus {
          *
          *
          * */
+        if (guess.contains(" ")){
+            return "Please enter numbers without any spaces between them";
+        }
         guess = guess.replaceAll("[^\\d]","");//replace anything thats not a number with ""
         // check input
         boolean isValid = this.validate(guess);

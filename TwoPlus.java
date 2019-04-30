@@ -32,7 +32,7 @@ public class TwoPlus {
         this.numberGenerated = this.generate(level);
     }
     private boolean validate(String guess){
-        guess = guess.replaceAll("[\\D]","");//replace all
+        //guess = guess.replaceAll("[\\D]","");//replace all
         int diff = Math.abs(guess.length() - numberGenerated.length());
         if(diff != 0){// too many or too few digits
             return false;
@@ -100,7 +100,7 @@ public class TwoPlus {
 
         }
 
-        return "Invald input, only numbers are allowed,try again";
+        return "Invald input, only "+numberGenerated.length()+" digit numbers are allowed,try again";
 
 
 

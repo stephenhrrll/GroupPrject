@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameData {
+public class GameData implements Serializable {
 
     ArrayList<Player> players;
 
