@@ -24,7 +24,7 @@ class NumbersGame extends JFrame implements WindowListener {
 
         gameData = new GameData();
         gamePlay = new TwoPlus("2");//just place holders
-        gamePlay1 = new LevelOne("1");
+        gamePlay1 = new LevelOne("1", "2");
         player = new Player("");//just place holders
         gameRecord = new GameRecord("", "");
 
@@ -35,14 +35,9 @@ class NumbersGame extends JFrame implements WindowListener {
         cst = new GridBagConstraints();
         setLocationRelativeTo(null);//opens in the center of the screen
 
-        /*
-        * Saving data when closing will have to start here
-        *
-        * need to look this up
-        *
-        * */
 
-        addWindowListener(this);
+        addWindowListener(this);//definitions for closing opening are in windowClosing() and windowOpened()
+                                  //towards the end of the NumbersGame class
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         makeView();
@@ -155,6 +150,7 @@ class NumbersGame extends JFrame implements WindowListener {
                 String in = input.getText();
                 in = in.replaceAll(" ", "");
 
+
                 if(buttonText.matches("Start Game")){
                     //user has just entered their name
 
@@ -182,15 +178,15 @@ class NumbersGame extends JFrame implements WindowListener {
                     if(in.matches("1")){
                         //start level 1
                         whichGame = 0;
-                        output.setText("Enter a maximum value");
+                        /*output.setText("Enter a maximum value");
                         input.setText("Enter a maximum value");
-                        gamePlay1 = new LevelOne(in);
+                        gamePlay1 = new LevelOne(in);*/
 
 
-                        gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), in);
-                        player.addGamePlayed(gameRecord);
-                        button.setText("Guess");
-                        output.setText(String.format("Enter a number between 1 and %s", in));
+                        /*gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), in);
+                        player.addGamePlayed(gameRecord);*/
+                        button.setText("Set Max");
+                        output.setText("Enter a Max value to guess");
                         input.setText("Enter a whole number");
                     }else {
                         gamePlay = new TwoPlus(in);
@@ -208,32 +204,31 @@ class NumbersGame extends JFrame implements WindowListener {
                 }else if(buttonText.matches("Guess")){
 
                     //the user has entered their guess
-                    if (whichGame == 1){
-                    String checkGuess = gamePlay.checkGuess(in);
+                    if (whichGame == 1){//do level Twoplus studd here
+                        String checkGuess = gamePlay.checkGuess(in);
 
-                    System.out.println(gamePlay.getNumberGenerated());
+                        System.out.println(gamePlay.getNumberGenerated());
 
-                    gameRecord.addTurn(in +","+ checkGuess);
+                        gameRecord.addTurn(in +","+ checkGuess);
 
-                    if(checkGuess.contains("Win")){
-                        gameRecord.setEndTime();
-                        gameRecord.setStatus("Won");
-                        //display win message
-                        output.setText(guiMessages.winMessage());
+                        if(checkGuess.contains("Win")){
+                            gameRecord.setEndTime();
+                            gameRecord.setStatus("Won");
+                            //display win message
+                            output.setText(guiMessages.winMessage());
 
-                        //let the player choose to play again
+                            //let the player choose to play again
 
-                        button.setText("Submit");
-                        input.setText(gamePlay.getLevel());
+                            button.setText("Submit");
+                            input.setText(gamePlay.getLevel());
 
-                    }
-
-
-                    else {
+                        }else{
 
                         output.setText(output.getText() + "\n" +
                                 checkGuess + "\n");
-                    }}if (whichGame == 0){
+                        }
+                    }
+                    if (whichGame == 0){
                         String checkGuess = gamePlay1.checkGuess(in);
 
                         System.out.println(gamePlay1.getNumberGenerated());
@@ -274,6 +269,20 @@ class NumbersGame extends JFrame implements WindowListener {
 //                    }
 
 
+
+                }else if(buttonText.matches("Set Max")){
+                    //they have entered a max value
+                    output.setText("Enter a maximum value");
+                    input.setText("Enter a maximum value");
+                    gamePlay1 = new LevelOne("1", in);
+
+
+                    gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), in);
+                    player.addGamePlayed(gameRecord);
+
+                    button.setText("Guess");
+                    output.setText(String.format("Enter a %d digit number", gameRecord.getNumberToGuess().length()));
+                    input.setText("Enter a whole number");
 
                 }
 
@@ -468,7 +477,9 @@ class NumbersGame extends JFrame implements WindowListener {
             }*/
 
         } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+            //nothing needs to happen  the file was deleted or
+            //this is the first time its running
+            //in either case the game will continue as if its the first time being played
         } catch (IOException e1) {
             e1.printStackTrace();
         } catch (ClassNotFoundException e1) {
