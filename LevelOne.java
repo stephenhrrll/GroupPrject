@@ -34,20 +34,6 @@ public class LevelOne {//extends TwoPlus {
         return Integer.toString(r.nextInt((Integer.valueOf(max) + 1)));
     }
 
-    private boolean validate(String guess){
-        //guess = guess.replaceAll("[^\\d]","");
-
-        guess = guess.replaceAll("[\\D]","");//replace all
-
-        //int diff = Math.abs(guess.length() - numberGenerated.length());
-        //if(diff != 0){// too many or too few digits
-        if (Integer.parseInt(guess) < 0){
-            return false;
-        }
-        return true;//is not a negative number
-    }
-
-
 
 
     public String checkGuess(String guess){
@@ -64,13 +50,9 @@ public class LevelOne {//extends TwoPlus {
          *
          *
          * */
-        if (guess.contains(" ")){
-            return "Please enter numbers without any spaces between them";
-        }
         guess = guess.replaceAll("[^\\d]","");//replace anything thats not a number with ""
         // check input
-        boolean isValid = this.validate(guess);
-        if(isValid){
+
             if(guess.matches(numberGenerated)){//they have guessed the right number
                 return "Win";
             }
@@ -93,9 +75,9 @@ public class LevelOne {//extends TwoPlus {
 
             //return correctDigits + correctPlace;
 
-        }
 
-        return "Invald input, only positive numbers are allowed,try again";
+
+        return null;
 
 
 
