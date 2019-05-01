@@ -171,12 +171,15 @@ class NumbersGame extends JFrame implements WindowListener {
                     output.setText("Hello " + player.getName()+"\n\n" + guiMessages.enterLevelInstructions());
                     input.setText("Enter Level");
                 }else if (buttonText.matches("Submit")){
-                    //the user has entered the level.
+                     if(this.validate(in)) {
 
-                    //start the game at that level
-                    if(in.matches("1")){
-                        //start level 1
-                        whichGame = 0;
+
+                         //start the game at that level
+
+                         if (in.matches("1")) {
+                             //start level 1
+                             whichGame = 0;
+
                         /*output.setText("Enter a maximum value");
                         input.setText("Enter a maximum value");
                         gamePlay1 = new LevelOne(in);*/
@@ -184,70 +187,77 @@ class NumbersGame extends JFrame implements WindowListener {
 
                         /*gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), in);
                         player.addGamePlayed(gameRecord);*/
-                        button.setText("Set Max");
-                        output.setText("Enter a Max value to guess" + "\n" + guiMessages.levelOneInstructions());
-                        input.setText("Enter a whole number");
-                    }else {
-                        gamePlay = new TwoPlus(in);
-                        whichGame = 1;
-                        //start the timer and start recording game data
-                        gameRecord = new GameRecord(gamePlay.getNumberGenerated(), in, player.getName());
-                        //add the record of this game to the player
-                        player.addGamePlayed(gameRecord);
+                             button.setText("Set Max");
+                             output.setText("Enter a Max value to guess" + "\n" + guiMessages.levelOneInstructions());
+                             input.setText("Enter a whole number");
+                         } else {
+                             gamePlay = new TwoPlus(in);
+                             whichGame = 1;
+                             //start the timer and start recording game data
+                             gameRecord = new GameRecord(gamePlay.getNumberGenerated(), in, player.getName());
+                             //add the record of this game to the player
+                             player.addGamePlayed(gameRecord);
 
 
-                        button.setText("Guess");
-                        output.setText(String.format("Enter a %s digit number", in) + "\n" + guiMessages.higherLevelInstructions());
-                        input.setText("Enter a whole number");
-                    }
+                             button.setText("Guess");
+                             output.setText(String.format("Enter a %s digit number", in) + "\n" + guiMessages.higherLevelInstructions());
+                             input.setText("Enter a whole number");
+                         }
+                     }else{
+                         output.setText(guiMessages.notValid());
+                     }
                 }else if(buttonText.matches("Guess")){
+                    if(this.validate(in)) {
 
-                    //the user has entered their guess
-                    if (whichGame == 1){//do level Twoplus studd here
-                        String checkGuess = gamePlay.checkGuess(in);
+                        //the user has entered their guess
+                        if (whichGame == 1) {//do level Twoplus studd here
+                            String checkGuess = gamePlay.checkGuess(in);
 
-                        System.out.println(gamePlay.getNumberGenerated());
+                            System.out.println(gamePlay.getNumberGenerated());
 
-                        gameRecord.addTurn(in +","+ checkGuess);
+                            gameRecord.addTurn(in + "," + checkGuess);
 
-                        if(checkGuess.contains("Win")){
-                            gameRecord.setEndTime();
-                            gameRecord.setStatus("Won");
-                            //display win message
-                            output.setText(guiMessages.winMessage());
+                            if (checkGuess.contains("Win")) {
+                                gameRecord.setEndTime();
+                                gameRecord.setStatus("Won");
+                                //display win message
+                                output.setText(guiMessages.winMessage());
 
-                            //let the player choose to play again
+                                //let the player choose to play again
 
-                            button.setText("Submit");
-                            input.setText(gamePlay.getLevel());
+                                button.setText("Submit");
+                                input.setText(gamePlay.getLevel());
 
-                        }else{
+                            } else {
 
-                        output.setText(output.getText() + "\n" +
-                                checkGuess + "\n");
+                                output.setText(output.getText() + "\n" +
+                                        checkGuess + "\n");
+                            }
                         }
+                        if (whichGame == 0) {
+                            String checkGuess = gamePlay1.checkGuess(in);
+
+                            System.out.println(gamePlay1.getNumberGenerated());
+                            gameRecord.addTurn(in + "," + checkGuess);
+
+                            if (checkGuess.contains("Win")) {
+                                gameRecord.setEndTime();
+                                gameRecord.setStatus("Won");
+
+                                output.setText(guiMessages.winMessage());
+
+                                button.setText("Submit");
+                                input.setText("1");
+
+                            } else {
+
+                                output.setText(output.getText() + "\n" +
+                                        checkGuess + "\n");
+                            }
+                        }
+                    }else{
+                        output.setText(guiMessages.notValid());
                     }
-                    if (whichGame == 0){
-                        String checkGuess = gamePlay1.checkGuess(in);
-
-                        System.out.println(gamePlay1.getNumberGenerated());
-                        gameRecord.addTurn(in + "," + checkGuess);
-
-                        if (checkGuess.contains("Win")) {
-                            gameRecord.setEndTime();
-                            gameRecord.setStatus("Won");
-
-                            output.setText(guiMessages.winMessage());
-
-                            button.setText("Submit");
-                            input.setText("1");
-
-                        }
-                        else {
-
-                            output.setText(output.getText() + "\n" +
-                                    checkGuess + "\n");
-                        }}
 
 //                    if (whichGame == 0){
 //                        String checkGuess = gamePlay1.checkGuess(in);
@@ -269,21 +279,47 @@ class NumbersGame extends JFrame implements WindowListener {
 
 
 
-                }else if(buttonText.matches("Set Max")){
-                    //they have entered a max value
-                    output.setText("Enter a maximum value");
-                    input.setText("Enter a maximum value");
-                    gamePlay1 = new LevelOne(in);
+                }else if(buttonText.matches("Set Max")) {
+                    /*
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     * validate the max value input
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     *
+                     * */
+                    if (this.validate(in)) {
+
+                        //they have entered a max value
+                        output.setText("Enter a maximum value");
+                        input.setText("Enter a maximum value");
+                        gamePlay1 = new LevelOne(in);
 
 
-                    gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), "1",player.getName());
-                    player.addGamePlayed(gameRecord);
+                        gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), "1", player.getName());
+                        player.addGamePlayed(gameRecord);
 
-                    button.setText("Guess");
+                        button.setText("Guess");
 
-                    output.setText(String.format("Enter a %d digit number, remember your max is " + in, in.length()));
-                    input.setText("Enter a whole number");
+                        output.setText(String.format("Enter a %d digit number, remember your max is " + in, in.length()));
+                        input.setText("Enter a whole number");
 
+                    }else{
+                        output.setText(guiMessages.notValid());
+                    }
                 }
 
             }

@@ -41,5 +41,4 @@ public class Messages {
         return "Please enter an input with only numeric characters and no spaces";
     }
 
-
 }
