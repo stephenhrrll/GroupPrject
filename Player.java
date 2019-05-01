@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Player implements Serializable {
 
@@ -8,7 +9,7 @@ public class Player implements Serializable {
 
     public Player(String name){
         this.name = name;
-        this.gamesPlayed = new ArrayList<GameRecord>();
+        this.gamesPlayed = new ArrayList<>() ;
     }
 
     public String getName() {
@@ -24,8 +25,11 @@ public class Player implements Serializable {
     }
 
     public void addGamePlayed(GameRecord game){
-        this.gamesPlayed.add(game);
+
+        getGamesPlayed().add(game);
 
     }
+
+
 
 }
