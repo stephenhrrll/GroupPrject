@@ -31,11 +31,12 @@ public class LevelOne {//extends TwoPlus {
         return answer;*/
 
         Random r = new Random();
-        return Integer.toString(r.nextInt((Integer.valueOf(max) - 0) + 1));
+        return Integer.toString(r.nextInt((Integer.valueOf(max) + 1)));
     }
 
     private boolean validate(String guess){
         //guess = guess.replaceAll("[^\\d]","");
+
         guess = guess.replaceAll("[\\D]","");//replace all
 
         //int diff = Math.abs(guess.length() - numberGenerated.length());
