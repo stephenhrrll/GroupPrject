@@ -24,7 +24,7 @@ class NumbersGame extends JFrame implements WindowListener {
 
         gameData = new GameData();
         gamePlay = new TwoPlus("2");//just place holders
-        gamePlay1 = new LevelOne("1", "2");
+        //gamePlay1 = new LevelOne( "2");
         player = new Player("");//just place holders
         gameRecord = new GameRecord("", "","");
 
@@ -148,7 +148,7 @@ class NumbersGame extends JFrame implements WindowListener {
 
                 //get text from input
                 String in = input.getText();
-                in = in.replaceAll(" ", "");
+                //in = in.replaceAll(" ", "");
 
 
                 if(buttonText.matches("Start Game")){
@@ -168,7 +168,7 @@ class NumbersGame extends JFrame implements WindowListener {
 
 
                     button.setText("Submit");
-                    output.setText("Hello " + player.getName()+"\n\n" + guiMessages.higherLevelInstructions());
+                    output.setText("Hello " + player.getName()+"\n\n" + guiMessages.enterLevelInstructions());
                     input.setText("Enter Level");
                 }else if (buttonText.matches("Submit")){
                     //the user has entered the level.
@@ -186,7 +186,7 @@ class NumbersGame extends JFrame implements WindowListener {
                         /*gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), in);
                         player.addGamePlayed(gameRecord);*/
                         button.setText("Set Max");
-                        output.setText("Enter a Max value to guess");
+                        output.setText("Enter a Max value to guess" + "\n" + guiMessages.levelOneInstructions());
                         input.setText("Enter a whole number");
                     }else {
                         gamePlay = new TwoPlus(in);
@@ -198,7 +198,7 @@ class NumbersGame extends JFrame implements WindowListener {
 
 
                         button.setText("Guess");
-                        output.setText(String.format("Enter a %s digit number", in));
+                        output.setText(String.format("Enter a %s digit number", in) + "\n" + guiMessages.higherLevelInstructions());
                         input.setText("Enter a whole number");
                     }
                 }else if(buttonText.matches("Guess")){
@@ -274,14 +274,15 @@ class NumbersGame extends JFrame implements WindowListener {
                     //they have entered a max value
                     output.setText("Enter a maximum value");
                     input.setText("Enter a maximum value");
-                    gamePlay1 = new LevelOne("1", in);
+                    gamePlay1 = new LevelOne(in);
 
 
                     gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), "1",player.getName());
                     player.addGamePlayed(gameRecord);
 
                     button.setText("Guess");
-                    output.setText("Enter a whole number");
+
+                    output.setText(String.format("Enter a %d digit number, remember your max is " + in, in.length()));
                     input.setText("Enter a whole number");
 
                 }
