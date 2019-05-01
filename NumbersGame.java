@@ -28,7 +28,7 @@ class NumbersGame extends JFrame implements WindowListener {
         //gamePlay1 = new LevelOne( "2")
   
         player = new Player("");//just place holders
-        gameRecord = new GameRecord("", "");
+        gameRecord = new GameRecord("", "","");
 
         //JFrame settings
         setSize(new Dimension(650, 900));
@@ -196,7 +196,7 @@ class NumbersGame extends JFrame implements WindowListener {
                         gamePlay = new TwoPlus(in);
                         whichGame = 1;
                         //start the timer and start recording game data
-                        gameRecord = new GameRecord(gamePlay.getNumberGenerated(), in);
+                        gameRecord = new GameRecord(gamePlay.getNumberGenerated(), in, player.getName());
                         //add the record of this game to the player
                         player.addGamePlayed(gameRecord);
 
@@ -282,11 +282,11 @@ class NumbersGame extends JFrame implements WindowListener {
                 
 
 
-                    gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), in);
+                    gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), "1",player.getName());
                     player.addGamePlayed(gameRecord);
 
                     button.setText("Guess");
-                    output.setText(String.format("Enter a %d digit number", gameRecord.getNumberToGuess().length()));
+                    output.setText("Enter a whole number");
                     input.setText("Enter a whole number");
 
                 }
@@ -448,7 +448,49 @@ class NumbersGame extends JFrame implements WindowListener {
         dispStats.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //if time is selected
+                output.setText("");
+
+                if(time.isSelected()){
+                    output.append("Games sorted by length of time\n");
+                    output.append("\n");
+                    ArrayList<String> out = gameData.byTime();
+
+                    for(String l:out){
+                        output.append(l);
+
+                    }
+                }else if (numberOfPlays.isSelected()){
+                    output.append("Games sorted by number of turns\n");
+                    output.append("\n");
+                    ArrayList<String> out = gameData.byTurns();
+
+                    for(String l:out){
+                        output.append(l);
+
+                    }
+
+                }else if (topPlayer.isSelected()){
+                    System.out.println("3");
+                    output.append("Top Players ranked by average length of play per game\n");
+                    output.append("\n");
+                    ArrayList<String> out = gameData.topPlayers();
+
+                    for(String l:out){
+                        output.append(l);
+
+                    }
+                }else{//hardestGame
+
+                    output.append("Hardest games by level\n");
+                    output.append("\n");
+                    ArrayList<String> out = gameData.hardestGames();
+
+                    for(String l:out){
+                        output.append(l);
+
+                    }
+
+                }
 
             }
         });
