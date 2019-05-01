@@ -81,6 +81,9 @@ public class TwoPlus {
         *
         *
         * */
+        if (guess.contains(" ")){
+            return "Please input the numbers without any spaces between them";
+        }
         guess = guess.replaceAll("[\\D]","");//replace anything thats not a number with ""
         // check input
         boolean isValid = this.validate(guess);
