@@ -1,3 +1,4 @@
+//Evan Holmberg
 public class TwoPlus {
 
     private String numberGenerated;
@@ -97,7 +98,7 @@ public class TwoPlus {
 
             String correctPlace = countSequence(guess);
 
-            return correctDigits + correctPlace;
+            return "Your guess was " + guess + " and your hint was " + correctDigits + correctPlace;
 
         }
 
