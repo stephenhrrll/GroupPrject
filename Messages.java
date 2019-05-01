@@ -35,8 +35,11 @@ public class Messages {
         return "You win!\n"+
                 "To play again, enter a level or click Submit\n"+
                 "To quit, exit the game";
+
+    }
+    public String notValid(){
+        return "Please enter an input with only numeric characters and no spaces";
     }
 
 
 }
-

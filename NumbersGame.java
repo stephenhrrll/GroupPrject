@@ -174,7 +174,6 @@ class NumbersGame extends JFrame implements WindowListener {
                     //the user has entered the level.
 
                     //start the game at that level
-
                     if(in.matches("1")){
                         //start level 1
                         whichGame = 0;
@@ -531,6 +530,15 @@ class NumbersGame extends JFrame implements WindowListener {
 
 
     }
+
+
+    public boolean validate(String guess){
+        if (guess.matches("^[0-9]+$")){
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public void windowClosing(WindowEvent e) {
