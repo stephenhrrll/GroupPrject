@@ -3,12 +3,18 @@ import java.util.concurrent.ThreadLocalRandom;
 public class LevelOne {//extends TwoPlus {
     private String level = "1";
     private String numberGenerated;
-
+    private String max;
 
     public LevelOne (String max){
+        //this.level = level;
+        this.max = max;
         this.numberGenerated = this.generate(max);
 
 
+    }
+
+    public String getMax(){
+        return max;
     }
     public String getNumberGenerated() {
         return numberGenerated;
@@ -30,13 +36,15 @@ public class LevelOne {//extends TwoPlus {
 
     private boolean validate(String guess){
         //guess = guess.replaceAll("[^\\d]","");
-        boolean hasOtherChars = guess.matches("[\\D]");
-        System.out.println(hasOtherChars);
-        int diff = Math.abs(numberGenerated.length() - guess.length());
-        if(hasOtherChars){// too many digits
+
+        guess = guess.replaceAll("[\\D]","");//replace all
+
+        //int diff = Math.abs(guess.length() - numberGenerated.length());
+        //if(diff != 0){// too many or too few digits
+        if (Integer.parseInt(guess) < 0){
             return false;
         }
-        return true;//is correct length and has only numbers
+        return true;//is not a negative number
     }
 
 
@@ -87,7 +95,7 @@ public class LevelOne {//extends TwoPlus {
 
         }
 
-        return "Invald input, only numbers are allowed,try again";
+        return "Invald input, only positive numbers are allowed,try again";
 
 
 
