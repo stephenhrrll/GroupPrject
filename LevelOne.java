@@ -60,7 +60,6 @@ public class LevelOne {//extends TwoPlus {
             int tempGenerated = Integer.parseInt(numberGenerated);
             if (tempGuess > tempGenerated){
                 return ("Too high");
-                //System.out.println("Too high");//they have not guessed correctly
             }
             else if(tempGuess < tempGenerated){
                 return ("Too low");
