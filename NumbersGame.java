@@ -200,8 +200,8 @@ class NumbersGame extends JFrame implements WindowListener {
                             whichGame = 1;
                             //start the timer and start recording game data
                             gameRecord = new GameRecord(gamePlay.getNumberGenerated(), in, player.getName());
-                            //add the record of this game to the player
-                            player.addGamePlayed(gameRecord);
+                            /*//add the record of this game to the player
+                            player.addGamePlayed(gameRecord);*/
 
 
                             button.setText("Guess");
@@ -218,7 +218,6 @@ class NumbersGame extends JFrame implements WindowListener {
                         if (whichGame == 1) {//do level Twoplus studd here
                             String checkGuess = gamePlay.checkGuess(in);
 
-                            System.out.println(gamePlay.getNumberGenerated());
 
                             gameRecord.addTurn(in + "," + checkGuess);
 
@@ -227,6 +226,9 @@ class NumbersGame extends JFrame implements WindowListener {
                                 gameRecord.setStatus("Won");
                                 //display win message
                                 output.setText(guiMessages.winMessage());
+
+                                //add the record of this game to the player
+                                player.addGamePlayed(gameRecord);
 
                                 //let the player choose to play again
 
@@ -242,12 +244,14 @@ class NumbersGame extends JFrame implements WindowListener {
                         if (whichGame == 0) {
                             String checkGuess = gamePlay1.checkGuess(in);
 
-                            System.out.println(gamePlay1.getNumberGenerated());
                             gameRecord.addTurn(in + "," + checkGuess);
 
                             if (checkGuess.contains("Win")) {
                                 gameRecord.setEndTime();
                                 gameRecord.setStatus("Won");
+
+                                //add the record of this game to the player
+                                player.addGamePlayed(gameRecord);
 
                                 output.setText(guiMessages.winMessage());
 
@@ -264,26 +268,6 @@ class NumbersGame extends JFrame implements WindowListener {
                         output.setText(guiMessages.notValid());
                     }
 
-//                    if (whichGame == 0){
-//                        String checkGuess = gamePlay1.checkGuess(in);
-//
-//                        System.out.println(gamePlay1.getNumberGenerated());
-//                        gameRecord.addTurn(in + "," + checkGuess);
-//
-//                        if (checkGuess.contains("Win")){
-//                            gameRecord.setEndTime();
-//                            gameRecord.setStatus("Won");
-//
-//                            output.setText(guiMessages.winMessage());
-//
-//                            button.setText("Submit");
-//                            input.setText("1");
-//                        }
-//
-//                    }
-
-
-
                 }else if(buttonText.matches("Set Max")) {
                     if (validate(in)) {
                         //they have entered a max value
@@ -293,7 +277,6 @@ class NumbersGame extends JFrame implements WindowListener {
 
 
                         gameRecord = new GameRecord(gamePlay1.getNumberGenerated(), "1", player.getName());
-                        player.addGamePlayed(gameRecord);
 
                         button.setText("Guess");
 
@@ -484,7 +467,6 @@ class NumbersGame extends JFrame implements WindowListener {
                     }
 
                 }else if (topPlayer.isSelected()){
-                    System.out.println("3");
                     output.append("Top Players ranked by average length of play per game\n");
                     output.append("\n");
                     ArrayList<String> out = gameData.topPlayers();
@@ -531,13 +513,6 @@ class NumbersGame extends JFrame implements WindowListener {
             gameData = (GameData) ois.readObject();
             ois.close();
 
-            //this needs to be further tested
-
-            /*ArrayList<Player> data = gameData.getGameData();
-
-            for(Player p:data){
-                System.out.println(p.getName());
-            }*/
 
         } catch (FileNotFoundException e1) {
             //nothing needs to happen  the file was deleted or
@@ -558,7 +533,10 @@ class NumbersGame extends JFrame implements WindowListener {
     public void windowClosing(WindowEvent e) {
         // saving gameData will occur here
         try {
-            System.out.println("Closing");
+            if(gameRecord.getStatus().matches("Lost")){
+                gameRecord.setEndTime();
+                player.addGamePlayed(gameRecord);
+            }
             FileOutputStream fos = new FileOutputStream("gameData.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(gameData);
