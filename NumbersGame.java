@@ -1,3 +1,4 @@
+//Evan Holmberg
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -296,8 +297,7 @@ class NumbersGame extends JFrame implements WindowListener {
                         player.addGamePlayed(gameRecord);
 
                         button.setText("Guess");
-
-                        output.setText(String.format("Enter a %d digit number, remember your max is " + in, in.length()));
+                        output.setText(String.format("Enter a number less than your max of %s", in));
                         input.setText("Enter a whole number");
 
                     }
