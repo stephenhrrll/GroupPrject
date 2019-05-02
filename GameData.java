@@ -52,8 +52,10 @@ public class GameData implements Serializable {
             String name = gr.getPlayerName();
             Long t = Long.valueOf(gr.getTotalTime());
             String time = Double.toString((double)t / 1000);
+            String status = gr.getStatus();
+            String guessing = gr.getNumberToGuess();
 
-            output.add(name + ": " + time + " Seconds\n");
+            output.add(name + ": " + time + " seconds, guessing "+ guessing + " " + status+"\n");
         }
 
         return output;
@@ -86,9 +88,10 @@ public class GameData implements Serializable {
         for(GameRecord gr: allGames){
             String name = gr.getPlayerName();
             String turns = gr.getTurns();
+            String status = gr.getStatus();
+            String guessing = gr.getNumberToGuess();
 
-
-            output.add(name + ": " + turns + " turns\n");
+            output.add(name + ": " + turns + " turns, guessing "+ guessing + " " + status+"\n");
         }
         return output;
     }
@@ -252,8 +255,9 @@ public class GameData implements Serializable {
 
                 }
             }
+            double time = (double)Long.valueOf(mostTurns.getTotalTime())/1000;
 
-            ouput.add(mostTurns.getPlayerName() + " , " + mostTurns.getTurns() + " Turns\n");
+            ouput.add(mostTurns.getPlayerName() + " , " + mostTurns.getTurns() + " turns " + time + " seconds\n");
 
 
 
