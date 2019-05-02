@@ -1,3 +1,4 @@
+//Evan Holmberg
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 public class LevelOne {//extends TwoPlus {
@@ -59,10 +60,12 @@ public class LevelOne {//extends TwoPlus {
             int tempGuess = Integer.parseInt(guess);
             int tempGenerated = Integer.parseInt(numberGenerated);
             if (tempGuess > tempGenerated){
-                return ("Too high");
+
+                return ("Your guess was " + guess + " Which was too high");
+                //System.out.println("Too high");//they have not guessed correctly
             }
             else if(tempGuess < tempGenerated){
-                return ("Too low");
+                return ("\n Your guess was " + guess + " Which was too low");
             }
 
             //check how many correct digits are present

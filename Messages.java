@@ -1,3 +1,4 @@
+//Evan Holmberg
 public class Messages {
     /*The purpose of this class is just to serve various messages
         to the NumbersGame
